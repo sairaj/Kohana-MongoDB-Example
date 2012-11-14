@@ -13,7 +13,7 @@ class Controller_Content extends Controller {
  
     public function action_index() 
     {
-        $this->response->body('<a href="/kohana/index.php/user/logout/">Click to logout</a><br><br>Registered user can only access this');
+        $this->response->body('<a href="'.url::base().'/index.php/user/logout/">Click to logout</a><br><br>Registered user can only access this');
     }
  }
 ?>

@@ -33,18 +33,18 @@ class Controller_User extends Controller {
                         $session = Session::instance();
                         $session->set('user',$u);
                         
-                        echo 'Logged In<a href="/kohana/index.php/content/">Click to view content</a>';
+                        echo 'Logged In<a href="'.url::base().'/content/">Click to view content</a>';
                     }
                     else
                     {
-                        $str = "Incorrect password. <br><br><a href=".URL::site('').">Click to try again</a>";
+                        $str = "Incorrect password. <br><br><a href=".URL::base().">Click to try again</a>";
                         $this->response->body($str);    
                     }
                 }                
             }
             else
             {
-                $str = "Username not present. <br><br><a href=".URL::site('').">Click to try again</a>";
+                $str = "Username not present. <br><br><a href=".URL::base().">Click to try again</a>";
                 $this->response->body($str);    
             }
         }

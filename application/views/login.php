@@ -7,9 +7,9 @@ Password: <input type="text" id="txtPassword" name="txtPassword"/>
 
 <br />
 <br />
-<a href="/kohana/index.php/user/register">Click to register</a>
+<a href="<?php echo url::base();?>/user/register">Click to register</a>
 <br />
 <br />
-<a href="/kohana/index.php/content/">Try to access content</a>
+<a href="<?php echo url::base();?>/content/">Try to access content</a>
 
 </form>

@@ -63,6 +63,12 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
  */
 I18n::lang('en-us');
 
+if (strpos($_SERVER['HTTP_HOST'], 'livesite.com') !== FALSE)
+{
+    Kohana::$environment = Kohana::PRODUCTION;
+    error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+}
+
 /**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
  *
@@ -90,9 +96,11 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-	'base_url'   => '/kohana/',    
+	'base_url'   => '/',    
 	'index_file' => false,
 	'errors' => true, 
+    'caching'    => Kohana::$environment === Kohana::PRODUCTION,
+    'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
 	//index_file) => <>,
 ));
 
@@ -130,5 +138,17 @@ Route::set('default', '(<controller>(/<action>(/<id>)))')
 		'controller' => 'user',
 		'action'     => 'index',
 	));
+
+try
+{
+    $request = Request::instance()->execute();
+}
+catch (Exception $e)
+{
+    if ( Kohana::$environment == "development" AND $e->getCode() != 404 )
+    {
+        throw $e;
+    }
+}
 
 Cookie::$salt = 'salt';
